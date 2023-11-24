@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    %% En esta parte escribo mi nota
+    Note over browser: Añado una nota "Brandon Arturo"
+  
+    browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+
+
+    %% Guardado del servidor
+    Note over server: Se guarda la nota
+
+    %% Se recarga la pantalla y se genera una nueva llamada al server
+    Note over browser:Recarga de pantalla y callback del server 
+
+
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+    server-->browser: HTML-code
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    server-->browser: main.css
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    server-->browser: main.js
+
+    %% Ejecucion de JS y respuesta en forma de JSON
+    Note over browser:Ejecuta codigo de JS  y este mismo hace un request al server regresandon un JSON
+
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+
+    Note over browser:La ventana ejecuta el evento que despliega la nota
